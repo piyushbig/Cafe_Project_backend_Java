@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -26,36 +27,44 @@ public class Address {
     private String street;
     private int pincode;
     
-    @JsonIgnore
-    @OneToOne(mappedBy="address")
-    private Customer customer;
+//    @JsonIgnore
+//    @OneToOne(mappedBy="address")
+//    private Customer customer;
     
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "User_id")
-//    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "User_id")
+    private User user;
     
-    @JsonIgnore
-    @OneToOne(mappedBy="address")
-    private Cafe cafe;
+//    @JsonIgnore
+//    @OneToOne(mappedBy="address")
+//    private Cafe cafe;
 
 	public int getAddressId() {
 		return addressId;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
+//
+//	public Cafe getCafe() {
+//		return cafe;
+//	}
+//
+//	public void setCafe(Cafe cafe) {
+//		this.cafe = cafe;
+//	}
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Cafe getCafe() {
-		return cafe;
-	}
-
-	public void setCafe(Cafe cafe) {
-		this.cafe = cafe;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setAddressId(int addressId) {

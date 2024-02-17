@@ -3,7 +3,7 @@ package com.cafe.dto;
 public class ProductDetailsDto {
 	private String productName;
     private String categoryName;
-    private String cafeName;
+    private String userName;
     private double productPrice;
     private int quantity;
     
@@ -12,7 +12,7 @@ public class ProductDetailsDto {
         this.categoryName=categoryName;
         this.productPrice=productPrice;
         this. quantity= quantity;
-        this.cafeName=cafeName;
+        this.userName=cafeName;
     }
 
     
@@ -29,10 +29,10 @@ public class ProductDetailsDto {
 		this.categoryName = categoryName;
 	}
 	public String getCafeName() {
-		return cafeName;
+		return userName;
 	}
-	public void setCafeName(String cafeName) {
-		this.cafeName = cafeName;
+	public void setCafeName(String userName) {
+		this.userName = userName;
 	}
 	public double getProductPrice() {
 		return productPrice;

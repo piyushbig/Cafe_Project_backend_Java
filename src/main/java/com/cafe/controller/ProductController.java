@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe.Exception.ProductServiceException;
 import com.cafe.Exception.ResourceNotFoundException;
+import com.cafe.Exception.UserServiceException;
 import com.cafe.dto.CafeStatus;
 import com.cafe.dto.ProductDetailsDto;
 import com.cafe.entity.Product;
@@ -37,10 +39,10 @@ public class ProductController {
 		this.productService = productService;
     }
 
-    @PostMapping("/product/register")
-	public CafeStatus register(@RequestBody Product product){
+    @PostMapping("/register/{userId}")
+	public CafeStatus register(@RequestBody Product product,@PathVariable int userId,@RequestParam("file") MultipartFile file){
 		try {
-			 productService.add(product);
+			 productService.add(product, userId,file);
 			
 			CafeStatus status = new CafeStatus();
 			status.setStatus(true);
@@ -54,9 +56,23 @@ public class ProductController {
 			status.setMessage(e.getMessage());
 			return status;
 			
+		}catch(UserServiceException e) {
+			System.out.println(e.getMessage());
+			CafeStatus status = new CafeStatus();
+			status.setStatus(false);
+			status.setMessage(e.getMessage());
+			return status;
 		}
 		
 	}
+    
+//    @PostMapping("/addP")
+//    public String saveProduct(
+//    		)
+//    {
+//    	productService.saveProductToDB(, name, desc, price);
+//    	return "redirect:/listProducts.html";
+//    }
      
 
     @GetMapping("/details")
@@ -97,9 +113,9 @@ public class ProductController {
     }
     
     //for featch all data from Product table
-    @GetMapping("/product/fetchAll")
-	public List<Product> fetch() {
-		List<Product> product = productService.fetchAll();
+    @GetMapping("/product/fetchAll/{userId}")
+	public List<Product> fetch(@PathVariable int userId) {
+		List<Product> product = productService.fetchAll(userId);
 		
 		return product;
 	}

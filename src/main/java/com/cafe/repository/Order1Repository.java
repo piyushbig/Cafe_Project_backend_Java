@@ -13,12 +13,12 @@ import java.util.Optional;
 
 public interface Order1Repository extends JpaRepository<Order, Long> {
 
-    @Query("SELECT new com.cafe.dto.ProductDetailsDto(p.name, c.name, o.totalAmount, oi.quantity, ca.name) " +
+    @Query("SELECT new com.cafe.dto.ProductDetailsDto(p.name, c.name, o.totalAmount, oi.quantity, ca.username) " +
             "FROM Order o " +
             "JOIN o.orderItems oi " +
             "JOIN oi.product p " +
             "JOIN p.category c " +
-            "JOIN o.cafe ca "           )
+            "JOIN o.user ca "           )
     List<ProductDetailsDto> getProductDetailsForApprovedOrders();
     
     @Modifying

@@ -1,10 +1,12 @@
 package com.cafe.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -18,14 +20,36 @@ public class Product {
 	private String name;
 	private double price;
 	
+	@Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String image;
+	
+	
+
 	@ManyToOne
 	@JoinColumn(name="categoryId")
 	private Category category;
 	
-//	@OneToMany
-//	@JoinColumn(name="OrderItemID")
-//	private OrderItem orderitem;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public int getProductId() {
 		return productId;
 	}

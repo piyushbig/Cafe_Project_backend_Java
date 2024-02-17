@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.dto.OrderRequestDto;
-import com.cafe.entity.Cafe;
+
 import com.cafe.entity.Order;
 import com.cafe.entity.OrderItem;
 import com.cafe.services.BillService;

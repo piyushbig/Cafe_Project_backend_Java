@@ -1,18 +1,25 @@
 package com.cafe.services;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe.Exception.ProductServiceException;
+import com.cafe.Exception.UserServiceException;
 import com.cafe.dto.ProductDetailsDto;
 import com.cafe.entity.Order;
 import com.cafe.entity.Product;
+import com.cafe.entity.User;
 import com.cafe.repository.Order1Repository;
 import com.cafe.repository.ProductRepository;
+import com.cafe.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -23,11 +30,39 @@ public class ProductService {
     private Order1Repository order1Repository;
     
     @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
     private ProductRepository productRepository;
 
-    public void add(Product product) {
+    public void add(Product product,int userId,MultipartFile file) throws UserServiceException {
 		Optional<Product> checkProduct=productRepository.findByName(product.getName());
+		
+		Product p = new Product();
+		
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
+		
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a a valid file");
+		}
+		try {
+			
+			
+			p.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	
 		if(checkProduct.isEmpty()) {
+			
+			User user = userRepository.findById(userId)
+	                .orElseThrow(() -> new UserServiceException("User not found with id: " + userId));
+			
+			product.setUser(user);
+			
 		Product savedProduct=productRepository.save(product);
 		
 		}else throw new ProductServiceException("product already Registerd!!");
@@ -94,8 +129,16 @@ public class ProductService {
     }
     
 
-    public List<Product> fetchAll() {
-        return productRepository.findAll();
+    public List<Product> fetchAll(int id) {
+        return productRepository.findByUserId(id);
     }
+    
+    public void  saveProductToDB(MultipartFile file,String name,String description
+			,int price)
+	{
+		Product p = new Product();
+		
+		
+	}
 }
 

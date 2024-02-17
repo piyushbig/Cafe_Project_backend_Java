@@ -40,13 +40,17 @@ public class Order {
 		this.totalAmount = totalAmount;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "CustomerID", nullable = false)
-    private Customer customer;
+//	@ManyToOne
+//    @JoinColumn(name = "CustomerID", nullable = false)
+//    private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "cafeID", nullable = false)
-    private Cafe cafe;
+//    @ManyToOne
+//    @JoinColumn(name = "cafeID", nullable = false)
+//    private Cafe cafe;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id",nullable=false)
+	private User user;
     
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -64,13 +68,13 @@ public class Order {
 		this.bill = bill;
 	}
 
-	public Cafe getCafe() {
-		return cafe;
-	}
-
-	public void setCafe(Cafe cafe) {
-		this.cafe = cafe;
-	}
+//	public Cafe getCafe() {
+//		return cafe;
+//	}
+//
+//	public void setCafe(Cafe cafe) {
+//		this.cafe = cafe;
+//	}
 
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
@@ -101,13 +105,13 @@ public class Order {
 		this.status = status;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 
 	
 }
