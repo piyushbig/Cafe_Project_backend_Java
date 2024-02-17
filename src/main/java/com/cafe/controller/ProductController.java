@@ -113,12 +113,20 @@ public class ProductController {
     }
     
     //for featch all data from Product table
-    @GetMapping("/product/fetchAll/{userId}")
+    @GetMapping("/product/fetchById/{userId}")
 	public List<Product> fetch(@PathVariable int userId) {
-		List<Product> product = productService.fetchAll(userId);
+		List<Product> product = productService.fetchById(userId);
 		
 		return product;
 	}
+    
+    @GetMapping("products/fetchAll")
+    public List<Product> fetchProducts(){
+    	
+    	List<Product> product = productService.fetchAll();
+    	return product;
+    	
+    }
     
     @DeleteMapping("/deleteProduct")
     public ResponseEntity<String> deleteproduct( @RequestParam  int productId) {

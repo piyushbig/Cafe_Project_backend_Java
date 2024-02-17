@@ -129,8 +129,11 @@ public class ProductService {
     }
     
 
-    public List<Product> fetchAll(int id) {
+    public List<Product> fetchById(int id) {
         return productRepository.findByUserId(id);
+    }
+    public List<Product> fetchAll() {
+        return productRepository.findAll();
     }
     
     public void  saveProductToDB(MultipartFile file,String name,String description

@@ -51,6 +51,7 @@ public class AuthenticationService {
 		
 		String token = jwtService.generateTokens(user);
 		
+		
 		return new AuthenticationResponse(token);
 		
 	}
@@ -67,7 +68,7 @@ public class AuthenticationService {
 		
 		String token = jwtService.generateTokens(user);
 		
-		return new  AuthenticationResponse(token);
+		return new  AuthenticationResponse(token,user.getRole());
 	}
 	
 
