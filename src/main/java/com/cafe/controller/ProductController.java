@@ -120,7 +120,7 @@ public class ProductController {
 		return product;
 	}
     
-    @GetMapping("products/fetchAll")
+    @GetMapping("/fetchAll")
     public List<Product> fetchProducts(){
     	
     	List<Product> product = productService.fetchAll();
